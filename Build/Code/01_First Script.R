@@ -35,3 +35,20 @@ library(tidyverse)
   )  
   summary(e.data)
   
+ 
+  #pipped syntax %>%
+  
+  #Wrangle Data
+    e.data.2 <- e.data %>%
+      select(OfficeName, County, Votes, PartyName, BallotGroup) %>%
+      group_by(County, OfficeName) %>% #to calculate the number of votes in County and OfficeName
+        mutate(Total.Votes = sum(Votes)) %>% # = to create a new vector and not <-
+      ungroup() %>% #Once you group, always end by ungroup and indent to get back to the main
+  
+    mutate(Share = Votes / Total.Votes,
+           County = toupper(County)) %>%
+    filter(BallotGroup == "A",
+      !is.na(Share))
+      
+     
+      
